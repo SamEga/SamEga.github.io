@@ -1,0 +1,6 @@
+.form-group {
+  display: flex;
+}
+.form-group button {
+  margin: 0 5px;
+}

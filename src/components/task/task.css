@@ -1,0 +1,14 @@
+.todo-list-item {
+  width: 100%;
+}
+.todo-list-item button {
+  margin: 0.25rem 0.5rem;
+  float: right;
+}
+.todo-list-item-label {
+  line-height: 3;
+}
+.done {
+  font-weight: bold;
+  color: #28a745;
+}
