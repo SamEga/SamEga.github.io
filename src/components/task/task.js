@@ -18,14 +18,14 @@ const Task = props => {
         {item.label}
       </span>
 
+      <button className="btn btn-outline-danger" onClick={props.deleteItem}>
+        Delete
+      </button>
       <button
         className="btn btn-outline-success"
         onClick={props.toggleImportant}
       >
         Important
-      </button>
-      <button className="btn btn-outline-danger" onClick={props.deleteItem}>
-        Delete
       </button>
     </span>
   );

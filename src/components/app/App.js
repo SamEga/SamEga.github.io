@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './App.css';
+
 import TaskList from '../tasks-list/tasks-list';
 import InputPanel from '../input-panel/input-panel';
 
@@ -8,11 +10,7 @@ import AddItemForm from '../add-item-form/add-item-form';
 export default class App extends Component {
   maxId = 1;
   state = {
-    items: [
-      this.createItem('My SQL'),
-      this.createItem('JAVA'),
-      this.createItem('GraphQl')
-    ],
+    items: [this.createItem('Test Row'), this.createItem('Another Test Row')],
     filter: 'All'
   };
 
@@ -113,7 +111,7 @@ export default class App extends Component {
     const filteredItems = this.filterState(this.state.items, this.state.filter);
     return (
       <div className="container">
-        <h1>Todo App</h1>
+        <h1>Task App</h1>
         <InputPanel filterItems={this.filterItems} filter={this.state.filter} />
         <TaskList
           items={filteredItems}
