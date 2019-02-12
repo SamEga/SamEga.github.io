@@ -8,18 +8,20 @@ import AddItemForm from '../add-item-form/add-item-form';
 export default class App extends Component {
   maxId = 1;
   state = {
-    todoData: [
+    items: [
       this.createItem('My SQL'),
       this.createItem('JAVA'),
       this.createItem('GraphQl')
-    ]
+    ],
+    filter: 'All'
   };
 
   createItem(label) {
     return {
       id: this.maxId++,
       label,
-      important: false
+      important: false,
+      done: false
     };
   }
 
@@ -27,29 +29,36 @@ export default class App extends Component {
     const newTask = this.createItem(text);
 
     this.setState(data => {
-      const { todoData } = this.state;
-      const newArr = [...todoData, newTask];
+      const { items } = this.state;
+      const newArr = [...items, newTask];
       return {
-        todoData: newArr
+        items: newArr
       };
     });
   };
 
   deleteItem = id => {
     const newState = Object.assign({}, this.state);
-    const curItem = newState.todoData.findIndex(item => {
+    const curItem = newState.items.findIndex(item => {
       return item.id === id;
     });
-    newState.todoData.splice(curItem, 1);
+    newState.items.splice(curItem, 1);
 
     this.setState({
       newState
     });
   };
 
+  // Change item done value
+
+  toggleDone = id => {
+    console.log('done');
+  };
+
+  // Change item important value
   toggleImportant = id => {
     const newState = Object.assign({}, this.state);
-    const curItem = newState.todoData.find(item => {
+    const curItem = newState.items.find(item => {
       return item.id === id;
     });
     curItem.important = !curItem.important;
@@ -59,13 +68,46 @@ export default class App extends Component {
     });
   };
 
+  // Set filtered value from button
+  filterItems = name => {
+    this.setState({ filter: name });
+  };
+
+  // Filter items on filter value
+  filterState = (items, filter) => {
+    switch (filter) {
+      case 'All':
+        return items;
+
+      case 'Important':
+        return items.filter(item => {
+          return item.important;
+        });
+
+      case 'Done':
+        return items.filter(item => {
+          return item.done;
+        });
+
+      default:
+        return items;
+    }
+  };
+
+  // Search task from input value
+
+  search = () => {
+    console.log('search');
+  };
+
   render() {
+    const filteredItems = this.filterState(this.state.items, this.state.filter);
     return (
       <div className="container">
         <h1>Todo App</h1>
-        <InputPanel />
+        <InputPanel filterItems={this.filterItems} filter={this.state.filter} />
         <TaskList
-          data={this.state.todoData}
+          data={filteredItems}
           deleteItem={this.deleteItem}
           toggleImportant={this.toggleImportant}
         />
