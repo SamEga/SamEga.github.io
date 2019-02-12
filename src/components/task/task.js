@@ -2,14 +2,21 @@ import React from 'react';
 import './task.css';
 
 const Task = props => {
-  let classDone = 'todo-list-item';
-  if (props.important) {
-    classDone += ' done';
+  const { item } = props;
+
+  let classItem = 'todo-list-item';
+  if (item.important) {
+    classItem += ' important';
+  }
+  if (item.done) {
+    classItem += ' done';
   }
 
   return (
-    <span className={classDone}>
-      <span className="todo-list-item-label">{props.label}</span>
+    <span className={classItem}>
+      <span onClick={props.toggleDone} className="todo-list-item-label">
+        {item.label}
+      </span>
 
       <button
         className="btn btn-outline-success"

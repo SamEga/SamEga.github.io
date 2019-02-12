@@ -52,7 +52,16 @@ export default class App extends Component {
   // Change item done value
 
   toggleDone = id => {
-    console.log('done');
+    console.log(this.state.items);
+    const newState = Object.assign({}, this.state);
+    const curItem = newState.items.find(item => {
+      return item.id === id;
+    });
+    curItem.done = !curItem.done;
+
+    this.setState(() => {
+      return { newState, curItem };
+    });
   };
 
   // Change item important value
@@ -107,9 +116,10 @@ export default class App extends Component {
         <h1>Todo App</h1>
         <InputPanel filterItems={this.filterItems} filter={this.state.filter} />
         <TaskList
-          data={filteredItems}
+          items={filteredItems}
           deleteItem={this.deleteItem}
           toggleImportant={this.toggleImportant}
+          toggleDone={this.toggleDone}
         />
         <AddItemForm onAddItem={this.addItem} />
       </div>

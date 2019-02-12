@@ -8,7 +8,10 @@
 .todo-list-item-label {
   line-height: 3;
 }
-.done {
+.important {
   font-weight: bold;
   color: #28a745;
+}
+.done {
+  text-decoration: line-through;
 }

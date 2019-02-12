@@ -3,15 +3,16 @@ import Task from '../task/task';
 import './tasks-list.css';
 
 const TasksList = props => {
-  const elements = props.data.map(item => {
+  const elements = props.items.map(item => {
     return (
       <li className="list-group-item" key={item.id}>
         <Task
-          important={item.important}
-          data={props.data}
-          label={item.label}
+          item={item}
           toggleImportant={() => {
             props.toggleImportant(item.id);
+          }}
+          toggleDone={() => {
+            props.toggleDone(item.id);
           }}
           deleteItem={() => {
             props.deleteItem(item.id);
