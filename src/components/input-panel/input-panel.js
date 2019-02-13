@@ -22,7 +22,12 @@ export default class InputPanel extends Component {
     });
     return (
       <div className="form-group">
-        <input className="form-control " />
+        <input
+          onChange={e => {
+            this.props.onChangeSearch(e);
+          }}
+          className="form-control "
+        />
         {btns}
       </div>
     );

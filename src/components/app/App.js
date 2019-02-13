@@ -11,7 +11,8 @@ export default class App extends Component {
   maxId = 1;
   state = {
     items: [this.createItem('Test Row'), this.createItem('Another Test Row')],
-    filter: 'All'
+    filter: 'All',
+    search: ''
   };
 
   createItem(label) {
@@ -101,18 +102,30 @@ export default class App extends Component {
     }
   };
 
-  // Search task from input value
+  // Set search value from input
+  onChangeSearch = e => {
+    this.setState({ search: e.target.value });
+  };
 
-  search = () => {
-    console.log('search');
+  searchState = (items, search) => {
+    return items.filter(item => {
+      return item.label.toLowerCase().indexOf(search) > -1;
+    });
   };
 
   render() {
-    const filteredItems = this.filterState(this.state.items, this.state.filter);
+    const filteredItems = this.filterState(
+      this.searchState(this.state.items, this.state.search),
+      this.state.filter
+    );
     return (
       <div className="container">
         <h1>Task App</h1>
-        <InputPanel filterItems={this.filterItems} filter={this.state.filter} />
+        <InputPanel
+          onChangeSearch={this.onChangeSearch}
+          filterItems={this.filterItems}
+          filter={this.state.filter}
+        />
         <TaskList
           items={filteredItems}
           deleteItem={this.deleteItem}
